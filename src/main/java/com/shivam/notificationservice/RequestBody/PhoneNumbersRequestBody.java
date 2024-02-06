@@ -11,7 +11,6 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder //TODO read about this anotations
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PhoneNumbersRequestBody {
     @NotNull(message = "Please provide a list of phone numbers")
