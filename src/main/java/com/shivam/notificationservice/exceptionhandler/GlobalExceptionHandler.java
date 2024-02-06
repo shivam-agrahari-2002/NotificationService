@@ -3,6 +3,7 @@ package com.shivam.notificationservice.exceptionhandler;
 import com.shivam.notificationservice.ResponseBody.GenericResponse;
 import com.shivam.notificationservice.ResponseBody.ResponseError;
 import com.shivam.notificationservice.exception.BadRequestException;
+import com.shivam.notificationservice.exception.RepositoryException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -38,5 +39,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleBadRequest(BadRequestException badRequestException){
         GenericResponse<Object,ResponseError,Object> response = new GenericResponse<>(null,badRequestException.getResponseError(),null);
         return new ResponseEntity<>(response, HttpStatus.PARTIAL_CONTENT);
+    }
+
+    @ExceptionHandler(RepositoryException.class)
+    public ResponseEntity<Object> handleRepositoryException(RepositoryException repositoryException){
+        GenericResponse<?,String,?> response = new GenericResponse<>(null, repositoryException.getMessage(), null);
+        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

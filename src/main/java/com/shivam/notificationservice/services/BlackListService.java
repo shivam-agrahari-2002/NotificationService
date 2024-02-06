@@ -1,13 +1,14 @@
 package com.shivam.notificationservice.services;
 
 import com.shivam.notificationservice.Repository.mysql.BlackListRepository;
-import com.shivam.notificationservice.ResponseBody.GenericResponse;
 import com.shivam.notificationservice.ResponseBody.ResponseError;
 import com.shivam.notificationservice.constants.Constants;
 import com.shivam.notificationservice.entity.mysql.BlackListEntity;
 import com.shivam.notificationservice.exception.BadRequestException;
+import com.shivam.notificationservice.exception.RepositoryException;
 import com.shivam.notificationservice.validators.PhoneNumberValidator;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,12 +18,20 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
+@Slf4j
 public class BlackListService {
     BlackListRepository blackListRepository;
     BlacklistCachingService blacklistCachingService;
     public boolean blackListChecker(String phoneNumber) throws Exception{
         if(blacklistCachingService.isPresent(phoneNumber)) return true;
-        if(blackListRepository.existsById(phoneNumber)){
+        boolean check = false;
+        try{
+            check = blackListRepository.existsById(phoneNumber);
+        } catch (Exception e) {
+            log.debug("Mysql threw error while existsById() function");
+            throw new RepositoryException("mySql db threw error");
+        }
+        if(check){
             blacklistCachingService.addToSet(phoneNumber);
             return true;
         }
@@ -32,25 +41,40 @@ public class BlackListService {
         if(blacklistCachingService.isPresent(phoneNumber)){
             return false;
         }
-        if(blackListRepository.existsById(phoneNumber)){
-            blackListRepository.save(new BlackListEntity(phoneNumber));
-            return true;
+        try {
+            if (blackListRepository.existsById(phoneNumber)) {
+                blackListRepository.save(new BlackListEntity(phoneNumber));
+                return true;
+            }
+        } catch (Exception e) {
+            log.debug("Mysql threw error: SAVE() function");
+            throw new RepositoryException("Mysql threw error");
         }
         return false;
     }
 
     public void whiteLister(String phoneNumber) throws Exception{
-        blackListRepository.deleteById(phoneNumber);
+        try {
+            blackListRepository.deleteById(phoneNumber);
+        } catch (Exception e){
+            log.debug("Mysql threw error: deleteById() function");
+            throw new RepositoryException("Mysql threw error");
+        }
         if(blacklistCachingService.isPresent(phoneNumber)) blacklistCachingService.removeFromSet(phoneNumber);
     }
 
     public List<String> getAllBlackListedNumber() throws Exception{
-        List<BlackListEntity> numbers = blackListRepository.findAll();
-        List<String> allNumbers = new ArrayList<>();
-        for(BlackListEntity num: numbers) {
-            allNumbers.add(num.getPhoneNumber());
+        try {
+            List<BlackListEntity> numbers = blackListRepository.findAll();
+            List<String> allNumbers = new ArrayList<>();
+            for (BlackListEntity num : numbers) {
+                allNumbers.add(num.getPhoneNumber());
+            }
+            return allNumbers;
+        } catch (Exception e){
+            log.debug("Mysql threw error: findAll() function");
+            throw new RepositoryException("Mysql threw error");
         }
-        return allNumbers;
     }
 
     public String whiteListGiven(List<String> phoneNumbers) throws Exception{

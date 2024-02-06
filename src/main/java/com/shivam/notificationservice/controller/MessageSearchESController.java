@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/elk")
+@RequestMapping("/messages")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class MessageSearchESController {
     public LogsAndTextSearchService logsAndTextSearchService;

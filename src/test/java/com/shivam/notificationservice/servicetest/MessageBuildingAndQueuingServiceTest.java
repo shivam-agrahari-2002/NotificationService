@@ -15,6 +15,7 @@ import com.shivam.notificationservice.constants.Constants;
 import com.shivam.notificationservice.entity.kafka.MessageIDEntity;
 import com.shivam.notificationservice.entity.mysql.ProcessedMessageEntity;
 import com.shivam.notificationservice.exception.BadRequestException;
+import com.shivam.notificationservice.exception.RepositoryException;
 import com.shivam.notificationservice.kafka.MessageIdProducer;
 import com.shivam.notificationservice.services.MessageBuildingAndQueuingService;
 import com.shivam.notificationservice.transformer.RequestTransformer;
@@ -94,7 +95,7 @@ class MessageBuildingAndQueuingServiceTest {
         Assertions.assertThat(exception.getResponseError().getMessage()).isEqualTo("request_id not found in database");
     }
     @Test
-    void testGetDetails_idPresent() throws BadRequestException {
+    void testGetDetails_idPresent() throws BadRequestException, RepositoryException {
         Long id = 0L;
         ProcessedMessageEntity processedMessageEntity = new ProcessedMessageEntity();
         processedMessageEntity.setId(id);
