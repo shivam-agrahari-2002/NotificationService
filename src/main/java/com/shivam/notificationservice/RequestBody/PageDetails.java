@@ -1,24 +1,23 @@
 package com.shivam.notificationservice.RequestBody;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.shivam.notificationservice.exception.BadPageRequestException;
+import lombok.*;
+import org.springframework.validation.annotation.Validated;
 
-import javax.annotation.Nonnegative;
+import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Valid
 public class PageDetails {
 
     @NotNull(message = "input page required")
-    @NotEmpty(message = "input page required")
-    @Min(value = 0,message = "page-number should be non-negative")
-    int page;
+    @Min(value = 0, message = "page-number should be non-negative")
+    private Integer page;
 
     @NotNull(message = "input page size required")
-    @NotEmpty(message = "input page size required")
-    @Min(value = 0,message = "page-size should be non-negative")
-    int size;
+    @Min(value = 1, message = "page-size should be non-negative")
+    private Integer size;
 }

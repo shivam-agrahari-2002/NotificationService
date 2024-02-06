@@ -14,10 +14,8 @@ public class ElasticSearchTimeRangeRequestBody {
     @NotEmpty(message = "phoneNumber input required")
     String phoneNumber;
     @NotNull(message = "startTime Required")
-    @NotEmpty(message = "startTime Required")
     LocalDateTime startTime;
     @NotNull(message = "endTime Required")
-    @NotEmpty(message = "endTime Required")
     LocalDateTime endTime;
     PageDetails pageDetails;
 }

@@ -11,6 +11,7 @@ import com.shivam.notificationservice.transformer.RequestTransformer;
 import com.shivam.notificationservice.validators.PhoneNumberValidator;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -21,6 +22,7 @@ public class NotificationController {
     MessageBuildingAndQueuingService messageBuildingAndQueuingService;
     @PostMapping("/send")
     public GenericResponse<ResponseData, Object, Object> sendMessage(@RequestBody RawMessageRequestBody rawMessageRequestBody) throws Exception {
+//        System.out.println("hi");
         return messageBuildingAndQueuingService.sendToDB(rawMessageRequestBody);
     }
 

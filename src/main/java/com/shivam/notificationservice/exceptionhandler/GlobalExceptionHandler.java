@@ -2,6 +2,7 @@ package com.shivam.notificationservice.exceptionhandler;
 
 import com.shivam.notificationservice.ResponseBody.GenericResponse;
 import com.shivam.notificationservice.ResponseBody.ResponseError;
+import com.shivam.notificationservice.exception.BadPageRequestException;
 import com.shivam.notificationservice.exception.BadRequestException;
 import com.shivam.notificationservice.exception.RepositoryException;
 import org.springframework.http.HttpHeaders;
@@ -31,7 +32,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
         String errorMessage = "Failed to read request. Please check the request format and try again.";
-        GenericResponse<Object,String,Object> errorResponse = new GenericResponse<>(null,errorMessage,null);
+        GenericResponse<?,?,?> errorResponse = new GenericResponse<>(null,new ResponseError(errorMessage, ex.getMessage()),null);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
 
@@ -44,6 +45,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(RepositoryException.class)
     public ResponseEntity<Object> handleRepositoryException(RepositoryException repositoryException){
         GenericResponse<?,String,?> response = new GenericResponse<>(null, repositoryException.getMessage(), null);
+        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(BadPageRequestException.class)
+    public ResponseEntity<Object> handleBadPageRequestException(BadPageRequestException badPageRequestException){
+        GenericResponse<?,String,?> response = new GenericResponse<>(null, badPageRequestException.getMessage(), null);
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

@@ -66,8 +66,9 @@ public class LogsAndTextSearchService {
 
     public GenericResponse<List<MessageESEntity>,String,PageDetails> findAll(PageDetails pageDetails) throws Exception {
 //        smsLogElasticSearchRepository.deleteAll();
+        PageRequest pageRequest = PageRequest.of(pageDetails.getPage(), pageDetails.getSize());
         try {
-            Page<MessageESEntity> result = messageESRepository.findAll(PageRequest.of(pageDetails.getPage(), pageDetails.getSize()));
+            Page<MessageESEntity> result = messageESRepository.findAll(pageRequest);
             return new GenericResponse<>((List<MessageESEntity>) result.getContent(), null, new PageDetails(result.getNumber(), result.getSize()));
         } catch(Exception e){
             log.debug("ElasticSearch repository : findAll() threw error");

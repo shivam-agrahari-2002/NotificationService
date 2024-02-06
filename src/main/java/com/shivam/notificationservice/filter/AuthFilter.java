@@ -20,7 +20,7 @@ public class AuthFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse res = (HttpServletResponse) servletResponse;
-        log.info(req.getMethod() + " : " +req.getContextPath());
+        log.info(req.getMethod() + " : " +req.getRequestURL());
         String key = req.getHeader(Constants.INTERNAL_API_AUTH_HEADER);
         if (key != null && key.equals(Constants.INTERNAL_API_KEY)) {
             // Key is correct, proceed with the filter chain

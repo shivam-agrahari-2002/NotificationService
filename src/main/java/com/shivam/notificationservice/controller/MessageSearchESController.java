@@ -8,6 +8,7 @@ import com.shivam.notificationservice.entity.elasticsearch.MessageESEntity;
 import com.shivam.notificationservice.services.LogsAndTextSearchService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/messages")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
+@Validated
 public class MessageSearchESController {
     public LogsAndTextSearchService logsAndTextSearchService;
     @GetMapping("/find-by-text")

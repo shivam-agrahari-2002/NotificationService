@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -48,6 +49,7 @@ public class MessageSendingAndUpdatingService {
             logsAndTextSearchService.save(processedMessageEntity);
         }
         try {
+            processedMessageEntity.setUpdatedAt(LocalDateTime.now());
             smsRepository.save(processedMessageEntity);
         } catch(Exception e){
             log.debug("smsRepository gave error while creating new record: check mysql database errors");
