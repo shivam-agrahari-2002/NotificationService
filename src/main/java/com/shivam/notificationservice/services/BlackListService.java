@@ -14,12 +14,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 @Slf4j
-public class BlackListService {
+public class
+BlackListService {
     BlackListRepository blackListRepository;
     BlacklistCachingService blacklistCachingService;
     public boolean blackListChecker(String phoneNumber) throws Exception{
@@ -78,7 +78,7 @@ public class BlackListService {
     }
 
     public String whiteListGiven(List<String> phoneNumbers) throws Exception{
-        if(!PhoneNumberValidator.checkAllPhoneNumber(phoneNumbers)){
+        if(PhoneNumberValidator.checkAllPhoneNumber(phoneNumbers)){
             throw new BadRequestException(new ResponseError(Constants.INVALID_REQUEST,"check your phone numbers"));
         }
         for(String phoneNumber: phoneNumbers) {
@@ -90,7 +90,7 @@ public class BlackListService {
     }
 
     public String blackListGiven(List<String> phoneNumbers) throws Exception{
-        if(!PhoneNumberValidator.checkAllPhoneNumber(phoneNumbers)){
+        if(PhoneNumberValidator.checkAllPhoneNumber(phoneNumbers)){
             throw new BadRequestException(new ResponseError(Constants.INVALID_REQUEST,"check your phone numbers"));
         }
         for(String phoneNumber: phoneNumbers) {

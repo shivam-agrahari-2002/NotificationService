@@ -8,23 +8,22 @@ import com.shivam.notificationservice.entity.elasticsearch.MessageESEntity;
 import com.shivam.notificationservice.services.LogsAndTextSearchService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequestMapping("/messages")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-@Validated
 public class MessageSearchESController {
     public LogsAndTextSearchService logsAndTextSearchService;
     @GetMapping("/find-by-text")
-    public GenericResponse<List<MessageESEntity>,String,PageDetails> findByText(@RequestBody ElasticSearchTextSearchRequestBody requestBody)  throws Exception{
+    public GenericResponse<List<MessageESEntity>,String,PageDetails> findByText(@Valid  @RequestBody ElasticSearchTextSearchRequestBody requestBody)  throws Exception{
         return logsAndTextSearchService.findByMessage(requestBody);
     }
     @GetMapping("/find-in-time")
-    public GenericResponse<List<MessageESEntity>,String,PageDetails> findInTimeRange(@RequestBody ElasticSearchTimeRangeRequestBody requestBody)  throws Exception {
+    public GenericResponse<List<MessageESEntity>,String,PageDetails> findInTimeRange(@Valid @RequestBody ElasticSearchTimeRangeRequestBody requestBody)  throws Exception {
         return logsAndTextSearchService.findByPhoneNumberAndTimeRange(requestBody);
     }
     @GetMapping

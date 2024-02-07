@@ -29,6 +29,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(errorResponse);
     }
 
+    @ExceptionHandler(BadPageRequestException.class)
+    public ResponseEntity<Object> handleBadPageRequestException(BadPageRequestException badPageRequestException){
+        GenericResponse<?,String,?> response = new GenericResponse<>(null, badPageRequestException.getMessage(), null);
+        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
         String errorMessage = "Failed to read request. Please check the request format and try again.";
@@ -48,9 +53,4 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(BadPageRequestException.class)
-    public ResponseEntity<Object> handleBadPageRequestException(BadPageRequestException badPageRequestException){
-        GenericResponse<?,String,?> response = new GenericResponse<>(null, badPageRequestException.getMessage(), null);
-        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
 }

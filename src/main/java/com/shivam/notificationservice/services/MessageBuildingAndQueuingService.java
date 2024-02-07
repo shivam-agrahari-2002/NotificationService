@@ -27,7 +27,7 @@ public class MessageBuildingAndQueuingService {
     public SmsRepository smsRepository;
     public MessageIdProducer messageIdProducer;
     public GenericResponse<ResponseData,Object,Object> sendToDB(RawMessageRequestBody rawMessageRequestBody)  throws Exception {
-        if(!PhoneNumberValidator.isValidPhoneNumber(rawMessageRequestBody.getPhoneNumber())) {
+        if(PhoneNumberValidator.isValidPhoneNumber(rawMessageRequestBody.getPhoneNumber())) {
             log.error("wrong input format : phonenumber validation failed");
             throw new BadRequestException(new ResponseError(Constants.INVALID_REQUEST, "please check phonenumber"));
         }

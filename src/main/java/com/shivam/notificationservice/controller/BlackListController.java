@@ -1,15 +1,13 @@
 package com.shivam.notificationservice.controller;
 
 import com.shivam.notificationservice.ResponseBody.GenericResponse;
-import com.shivam.notificationservice.ResponseBody.ResponseError;
 import com.shivam.notificationservice.RequestBody.PhoneNumbersRequestBody;
-import com.shivam.notificationservice.exception.BadRequestException;
 import com.shivam.notificationservice.services.BlackListService;
-import com.shivam.notificationservice.validators.PhoneNumberValidator;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -23,11 +21,11 @@ public class BlackListController {
     }
 
     @DeleteMapping
-    public GenericResponse<String,String,String> whitelistNumbers(@RequestBody PhoneNumbersRequestBody phoneNumbersRequestBody) throws Exception {
+    public GenericResponse<String,String,String> whitelistNumbers(@Valid @RequestBody PhoneNumbersRequestBody phoneNumbersRequestBody) throws Exception {
         return new GenericResponse<>(blackListService.whiteListGiven(phoneNumbersRequestBody.getPhoneNumbers()), null,null);
     }
     @PostMapping
-    public GenericResponse<String,String,String> blacklistNumbers(@RequestBody PhoneNumbersRequestBody phoneNumbersRequestBody) throws Exception {
+    public GenericResponse<String,String,String> blacklistNumbers(@Valid @RequestBody PhoneNumbersRequestBody phoneNumbersRequestBody) throws Exception {
         return new GenericResponse<>(blackListService.blackListGiven(phoneNumbersRequestBody.getPhoneNumbers()), null,null);
     }
 }

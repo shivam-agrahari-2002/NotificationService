@@ -9,14 +9,16 @@ public class PhoneNumberValidator {
     private static final Pattern INDIAN_PHONE_NUMBER_PATTERN2 = Pattern.compile("^\\d{10}$");
 
     public static boolean isValidPhoneNumber(String phoneNumber) {
-        return INDIAN_PHONE_NUMBER_PATTERN.matcher(phoneNumber).matches() || INDIAN_PHONE_NUMBER_PATTERN2.matcher(phoneNumber).matches();
+        if(phoneNumber == null) return true;
+        return !INDIAN_PHONE_NUMBER_PATTERN.matcher(phoneNumber).matches() && !INDIAN_PHONE_NUMBER_PATTERN2.matcher(phoneNumber).matches();
     }
 
     public static boolean checkAllPhoneNumber(List<String> phoneNumbers){
+        if(phoneNumbers == null) return true;
         for(String phoneNumber: phoneNumbers){
-            if(!isValidPhoneNumber(phoneNumber)) return false;
+            if(isValidPhoneNumber(phoneNumber)) return true;
         }
-        return true;
+        return false;
     }
 
 }
