@@ -1,6 +1,6 @@
 package com.shivam.notificationservice.servicetest;
 
-import com.shivam.notificationservice.Repository.mysql.BlackListRepository;
+import com.shivam.notificationservice.repository.mysql.BlackListRepository;
 import com.shivam.notificationservice.constants.Constants;
 import com.shivam.notificationservice.entity.mysql.BlackListEntity;
 import com.shivam.notificationservice.exception.BadRequestException;
@@ -16,7 +16,6 @@ import org.springframework.context.annotation.ComponentScan;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;

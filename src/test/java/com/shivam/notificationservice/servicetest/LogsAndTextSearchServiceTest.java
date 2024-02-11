@@ -1,15 +1,14 @@
 package com.shivam.notificationservice.servicetest;
 
-import com.shivam.notificationservice.Repository.elasticsearch.MessageESRepository;
-import com.shivam.notificationservice.RequestBody.ElasticSearchTextSearchRequestBody;
-import com.shivam.notificationservice.RequestBody.ElasticSearchTimeRangeRequestBody;
-import com.shivam.notificationservice.RequestBody.PageDetails;
-import com.shivam.notificationservice.ResponseBody.GenericResponse;
+import com.shivam.notificationservice.repository.elasticsearch.MessageESRepository;
+import com.shivam.notificationservice.requestBody.ElasticSearchTextSearchRequestBody;
+import com.shivam.notificationservice.requestBody.ElasticSearchTimeRangeRequestBody;
+import com.shivam.notificationservice.requestBody.PageDetails;
+import com.shivam.notificationservice.responseBody.GenericResponse;
 import com.shivam.notificationservice.entity.elasticsearch.MessageESEntity;
 import com.shivam.notificationservice.entity.mysql.ProcessedMessageEntity;
 import com.shivam.notificationservice.exception.BadRequestException;
 import com.shivam.notificationservice.services.LogsAndTextSearchService;
-import com.shivam.notificationservice.transformer.MessageSQLToESTransformer;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

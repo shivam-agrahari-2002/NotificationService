@@ -1,6 +1,6 @@
 package com.shivam.notificationservice.transformer;
 
-import com.shivam.notificationservice.RequestBody.RawMessageRequestBody;
+import com.shivam.notificationservice.requestBody.RawMessageRequestBody;
 import com.shivam.notificationservice.entity.mysql.ProcessedMessageEntity;
 
 import java.time.LocalDateTime;

@@ -1,11 +1,11 @@
 package com.shivam.notificationservice.services;
 
-import com.shivam.notificationservice.Repository.elasticsearch.MessageESRepository;
-import com.shivam.notificationservice.RequestBody.ElasticSearchTextSearchRequestBody;
-import com.shivam.notificationservice.RequestBody.ElasticSearchTimeRangeRequestBody;
-import com.shivam.notificationservice.RequestBody.PageDetails;
-import com.shivam.notificationservice.ResponseBody.GenericResponse;
-import com.shivam.notificationservice.ResponseBody.ResponseError;
+import com.shivam.notificationservice.repository.elasticsearch.MessageESRepository;
+import com.shivam.notificationservice.requestBody.ElasticSearchTextSearchRequestBody;
+import com.shivam.notificationservice.requestBody.ElasticSearchTimeRangeRequestBody;
+import com.shivam.notificationservice.requestBody.PageDetails;
+import com.shivam.notificationservice.responseBody.GenericResponse;
+import com.shivam.notificationservice.responseBody.ResponseError;
 import com.shivam.notificationservice.constants.Constants;
 import com.shivam.notificationservice.entity.elasticsearch.MessageESEntity;
 import com.shivam.notificationservice.entity.mysql.ProcessedMessageEntity;

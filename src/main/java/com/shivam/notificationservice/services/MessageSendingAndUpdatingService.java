@@ -1,7 +1,7 @@
 package com.shivam.notificationservice.services;
 
-import com.shivam.notificationservice.Repository.mysql.SmsRepository;
-import com.shivam.notificationservice.ResponseBody.external.ImiconnectMessagingResponse;
+import com.shivam.notificationservice.repository.mysql.SmsRepository;
+import com.shivam.notificationservice.responseBody.external.ImiconnectMessagingResponse;
 import com.shivam.notificationservice.constants.Constants;
 import com.shivam.notificationservice.entity.mysql.ProcessedMessageEntity;
 import com.shivam.notificationservice.exception.RepositoryException;

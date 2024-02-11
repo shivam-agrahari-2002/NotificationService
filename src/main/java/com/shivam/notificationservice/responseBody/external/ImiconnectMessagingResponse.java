@@ -1,4 +1,4 @@
-package com.shivam.notificationservice.ResponseBody.external;
+package com.shivam.notificationservice.responseBody.external;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

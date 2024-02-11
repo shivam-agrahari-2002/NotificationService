@@ -1,10 +1,10 @@
 package com.shivam.notificationservice.services;
 
-import com.shivam.notificationservice.Repository.mysql.SmsRepository;
-import com.shivam.notificationservice.RequestBody.RawMessageRequestBody;
-import com.shivam.notificationservice.ResponseBody.GenericResponse;
-import com.shivam.notificationservice.ResponseBody.ResponseData;
-import com.shivam.notificationservice.ResponseBody.ResponseError;
+import com.shivam.notificationservice.repository.mysql.SmsRepository;
+import com.shivam.notificationservice.requestBody.RawMessageRequestBody;
+import com.shivam.notificationservice.responseBody.GenericResponse;
+import com.shivam.notificationservice.responseBody.ResponseData;
+import com.shivam.notificationservice.responseBody.ResponseError;
 import com.shivam.notificationservice.constants.Constants;
 import com.shivam.notificationservice.exception.BadRequestException;
 import com.shivam.notificationservice.exception.RepositoryException;

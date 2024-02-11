@@ -1,7 +1,7 @@
 package com.shivam.notificationservice.services;
 
-import com.shivam.notificationservice.Repository.mysql.BlackListRepository;
-import com.shivam.notificationservice.ResponseBody.ResponseError;
+import com.shivam.notificationservice.repository.mysql.BlackListRepository;
+import com.shivam.notificationservice.responseBody.ResponseError;
 import com.shivam.notificationservice.constants.Constants;
 import com.shivam.notificationservice.entity.mysql.BlackListEntity;
 import com.shivam.notificationservice.exception.BadRequestException;

@@ -1,6 +1,6 @@
 package com.shivam.notificationservice.validators;
 
-import com.shivam.notificationservice.RequestBody.PageDetails;
+import com.shivam.notificationservice.requestBody.PageDetails;
 
 public class PageValidator {
     public static boolean checkPageDetails(PageDetails pageDetails){

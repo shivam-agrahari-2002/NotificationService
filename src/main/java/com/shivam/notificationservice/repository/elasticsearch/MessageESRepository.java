@@ -1,4 +1,4 @@
-package com.shivam.notificationservice.Repository.elasticsearch;
+package com.shivam.notificationservice.repository.elasticsearch;
 
 import com.shivam.notificationservice.entity.elasticsearch.MessageESEntity;
 import org.springframework.data.domain.Page;

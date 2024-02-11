@@ -6,9 +6,10 @@ import com.shivam.notificationservice.services.MessageSendingAndUpdatingService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-@Service
+@Component
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class MessageIdConsumer {
     MessageSendingAndUpdatingService messageSendingAndUpdatingService;

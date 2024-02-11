@@ -1,4 +1,4 @@
-package com.shivam.notificationservice.ResponseBody;
+package com.shivam.notificationservice.responseBody;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

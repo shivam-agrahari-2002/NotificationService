@@ -1,10 +1,7 @@
 package com.shivam.notificationservice.exception;
 
-import com.shivam.notificationservice.ResponseBody.GenericResponse;
-import com.shivam.notificationservice.ResponseBody.ResponseData;
-import com.shivam.notificationservice.ResponseBody.ResponseError;
+import com.shivam.notificationservice.responseBody.ResponseError;
 import lombok.Getter;
-import org.springframework.stereotype.Component;
 
 @Getter
 public class BadRequestException extends Exception{

@@ -1,6 +1,5 @@
-package com.shivam.notificationservice.ResponseBody;
+package com.shivam.notificationservice.responseBody;
 
-import com.shivam.notificationservice.entity.mysql.ProcessedMessageEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

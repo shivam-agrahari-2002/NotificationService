@@ -1,7 +1,6 @@
 package com.shivam.notificationservice.servicetest;
-import com.shivam.notificationservice.*;
-import com.shivam.notificationservice.Repository.mysql.SmsRepository;
-import com.shivam.notificationservice.ResponseBody.external.ImiconnectMessagingResponse;
+import com.shivam.notificationservice.repository.mysql.SmsRepository;
+import com.shivam.notificationservice.responseBody.external.ImiconnectMessagingResponse;
 import com.shivam.notificationservice.entity.mysql.ProcessedMessageEntity;
 import com.shivam.notificationservice.services.BlackListService;
 import com.shivam.notificationservice.services.LogsAndTextSearchService;

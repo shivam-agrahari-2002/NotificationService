@@ -1,4 +1,4 @@
-package com.shivam.notificationservice.RequestBody;
+package com.shivam.notificationservice.requestBody;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

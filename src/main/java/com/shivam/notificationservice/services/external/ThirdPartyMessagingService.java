@@ -1,5 +1,5 @@
 package com.shivam.notificationservice.services.external;
-import com.shivam.notificationservice.ResponseBody.external.ImiconnectMessagingResponse;
+import com.shivam.notificationservice.responseBody.external.ImiconnectMessagingResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;

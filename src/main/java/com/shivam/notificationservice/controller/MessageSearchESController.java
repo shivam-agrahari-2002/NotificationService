@@ -1,9 +1,9 @@
 package com.shivam.notificationservice.controller;
 
-import com.shivam.notificationservice.RequestBody.ElasticSearchTextSearchRequestBody;
-import com.shivam.notificationservice.RequestBody.ElasticSearchTimeRangeRequestBody;
-import com.shivam.notificationservice.RequestBody.PageDetails;
-import com.shivam.notificationservice.ResponseBody.GenericResponse;
+import com.shivam.notificationservice.requestBody.ElasticSearchTextSearchRequestBody;
+import com.shivam.notificationservice.requestBody.ElasticSearchTimeRangeRequestBody;
+import com.shivam.notificationservice.requestBody.PageDetails;
+import com.shivam.notificationservice.responseBody.GenericResponse;
 import com.shivam.notificationservice.entity.elasticsearch.MessageESEntity;
 import com.shivam.notificationservice.services.LogsAndTextSearchService;
 import lombok.AllArgsConstructor;

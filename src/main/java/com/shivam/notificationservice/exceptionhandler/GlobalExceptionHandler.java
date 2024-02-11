@@ -1,7 +1,7 @@
 package com.shivam.notificationservice.exceptionhandler;
 
-import com.shivam.notificationservice.ResponseBody.GenericResponse;
-import com.shivam.notificationservice.ResponseBody.ResponseError;
+import com.shivam.notificationservice.responseBody.GenericResponse;
+import com.shivam.notificationservice.responseBody.ResponseError;
 import com.shivam.notificationservice.exception.BadPageRequestException;
 import com.shivam.notificationservice.exception.BadRequestException;
 import com.shivam.notificationservice.exception.RepositoryException;

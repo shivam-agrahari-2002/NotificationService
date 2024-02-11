@@ -1,4 +1,4 @@
-package com.shivam.notificationservice.ResponseBody;
+package com.shivam.notificationservice.responseBody;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;

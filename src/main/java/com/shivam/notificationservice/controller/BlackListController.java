@@ -1,7 +1,7 @@
 package com.shivam.notificationservice.controller;
 
-import com.shivam.notificationservice.ResponseBody.GenericResponse;
-import com.shivam.notificationservice.RequestBody.PhoneNumbersRequestBody;
+import com.shivam.notificationservice.responseBody.GenericResponse;
+import com.shivam.notificationservice.requestBody.PhoneNumbersRequestBody;
 import com.shivam.notificationservice.services.BlackListService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

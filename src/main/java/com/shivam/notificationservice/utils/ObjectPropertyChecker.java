@@ -1,6 +1,6 @@
 package com.shivam.notificationservice.utils;
 
-import com.shivam.notificationservice.ResponseBody.ResponseError;
+import com.shivam.notificationservice.responseBody.ResponseError;
 import com.shivam.notificationservice.exception.BadRequestException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;

@@ -1,8 +1,8 @@
 package com.shivam.notificationservice.controller;
 
-import com.shivam.notificationservice.ResponseBody.GenericResponse;
-import com.shivam.notificationservice.ResponseBody.ResponseData;
-import com.shivam.notificationservice.RequestBody.RawMessageRequestBody;
+import com.shivam.notificationservice.responseBody.GenericResponse;
+import com.shivam.notificationservice.responseBody.ResponseData;
+import com.shivam.notificationservice.requestBody.RawMessageRequestBody;
 import com.shivam.notificationservice.entity.mysql.ProcessedMessageEntity;
 import com.shivam.notificationservice.services.MessageBuildingAndQueuingService;
 import lombok.AllArgsConstructor;
