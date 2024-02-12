@@ -70,7 +70,7 @@ class LogsAndTextSearchServiceTest {
 
     @Test
     void testFindByPhoneNumberAndTimeRange_invalidTimeRange() throws Exception {
-        ElasticSearchTimeRangeRequestBody requestBody = new ElasticSearchTimeRangeRequestBody(null,LocalDateTime.parse("2024-01-29T16:02:28"),LocalDateTime.parse("2024-01-29T16:02:20"),new PageDetails(0,10));
+        ElasticSearchTimeRangeRequestBody requestBody = new ElasticSearchTimeRangeRequestBody("1234567890",LocalDateTime.parse("2024-01-29T16:02:28"),LocalDateTime.parse("2024-01-29T16:02:20"),new PageDetails(0,10));
         BadRequestException exception = assertThrows(BadRequestException.class,()->logsAndTextSearchService.findByPhoneNumberAndTimeRange(requestBody));
         verify(messageESRepository,never()).findByPhoneNumberAndCreatedAtBetween(anyString(),anyLong(),anyLong(),any(PageRequest.class));
         Assertions.assertThat(exception.getResponseError().getCode()).isEqualTo("INVALID_TIME_RANGE");
