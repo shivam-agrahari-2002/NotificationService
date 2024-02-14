@@ -9,7 +9,6 @@ public class PhoneNumberValidator {
     private static final Pattern INDIAN_PHONE_NUMBER_PATTERN2 = Pattern.compile("^\\d{10}$");
 
     public static boolean isValidPhoneNumber(String phoneNumber) {
-        if(phoneNumber == null) return true;
         return !INDIAN_PHONE_NUMBER_PATTERN.matcher(phoneNumber).matches() && !INDIAN_PHONE_NUMBER_PATTERN2.matcher(phoneNumber).matches();
     }
 

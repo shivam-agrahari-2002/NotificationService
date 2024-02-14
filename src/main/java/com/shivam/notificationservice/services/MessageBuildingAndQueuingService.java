@@ -59,10 +59,6 @@ public class MessageBuildingAndQueuingService {
     }
 
     public GenericResponse<ProcessedMessageEntity, Object, Object> getDetails(Long id) throws BadRequestException, RepositoryException {
-        if(id < 0){
-            log.error("wrong request id " + id + ": provided id is negative --- id should be > 0");
-            throw new BadRequestException(new ResponseError(Constants.INVALID_REQUEST, "provide appropriate request id"));
-        }
         Optional<ProcessedMessageEntity> optionalSmsRequestsEntity = Optional.empty();
         try {
             optionalSmsRequestsEntity = smsRepository.findById(id);

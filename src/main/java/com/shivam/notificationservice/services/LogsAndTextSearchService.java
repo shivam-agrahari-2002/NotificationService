@@ -13,7 +13,6 @@ import com.shivam.notificationservice.exception.BadPageRequestException;
 import com.shivam.notificationservice.exception.BadRequestException;
 import com.shivam.notificationservice.exception.RepositoryException;
 import com.shivam.notificationservice.transformer.MessageSQLToESTransformer;
-import com.shivam.notificationservice.utils.ObjectPropertyChecker;
 import com.shivam.notificationservice.validators.PageValidator;
 import com.shivam.notificationservice.validators.PhoneNumberValidator;
 import com.shivam.notificationservice.validators.TimeValidator;
@@ -42,10 +41,6 @@ public class LogsAndTextSearchService {
         }
     }
     public GenericResponse<List<MessageESEntity>,String,PageDetails> findByMessage(ElasticSearchTextSearchRequestBody requestBody) throws Exception {
-        if(ObjectPropertyChecker.passNullOrEmptyCheck(requestBody)){
-            log.error("RequestBody fields are empty | null");
-            throw new BadRequestException(new ResponseError("EMPTY_FIELDS","All fields are mandatory"));
-        }
         if(PageValidator.checkPageDetails(requestBody.getPageDetails())){
             log.error("page details didn't pass the validation");
             throw new BadPageRequestException("Page index Should Be Non-Negative & Size should have range(1-50)");
@@ -60,10 +55,6 @@ public class LogsAndTextSearchService {
         }
     }
     public GenericResponse<List<MessageESEntity>,String,PageDetails> findByPhoneNumberAndTimeRange(ElasticSearchTimeRangeRequestBody requestBody) throws Exception {
-        if(ObjectPropertyChecker.passNullOrEmptyCheck(requestBody)){
-            log.error("RequestBody fields are empty | null");
-            throw new BadRequestException(new ResponseError("EMPTY_FIELDS","All fields are mandatory"));
-        }
         if(PageValidator.checkPageDetails(requestBody.getPageDetails())){
             log.error("page details didn't pass the validation");
             throw new BadPageRequestException("Page index Should Be Non-Negative & Size should have range(1-50)");

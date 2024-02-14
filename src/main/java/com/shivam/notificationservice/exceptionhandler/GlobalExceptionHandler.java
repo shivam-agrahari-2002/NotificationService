@@ -5,6 +5,7 @@ import com.shivam.notificationservice.responseBody.ResponseError;
 import com.shivam.notificationservice.exception.BadPageRequestException;
 import com.shivam.notificationservice.exception.BadRequestException;
 import com.shivam.notificationservice.exception.RepositoryException;
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -26,19 +27,27 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         assert fieldError != null;
         String errorMessage = fieldError.getDefaultMessage();
         GenericResponse<Object,String,Object> errorResponse = new GenericResponse<>(null,errorMessage,null);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(errorResponse);
+        System.out.println(errorResponse);
+//        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(errorResponse);
+        return new ResponseEntity<>(errorResponse,HttpStatus.BAD_REQUEST);
     }
+
 
     @ExceptionHandler(BadPageRequestException.class)
     public ResponseEntity<Object> handleBadPageRequestException(BadPageRequestException badPageRequestException){
         GenericResponse<?,String,?> response = new GenericResponse<>(null, badPageRequestException.getMessage(), null);
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
-    @Override
-    protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
-        String errorMessage = "Failed to read request. Please check the request format and try again.";
-        GenericResponse<?,?,?> errorResponse = new GenericResponse<>(null,new ResponseError(errorMessage, ex.getMessage()),null);
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+//    @Override
+//    protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+//        String errorMessage = "Failed to read request. Please check the request format and try again.";
+//        GenericResponse<?,?,?> errorResponse = new GenericResponse<>(null,new ResponseError(errorMessage, ex.getMessage()),null);
+//        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+//    }
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<Object> handleConstraintViolationException(ConstraintViolationException constraintViolationException){
+        GenericResponse<Object,ResponseError,Object> response = new GenericResponse<>(null,new ResponseError("constraint validation failed",constraintViolationException.getMessage()),null);
+        return new ResponseEntity<>(response, HttpStatus.PARTIAL_CONTENT);
     }
 
     @ExceptionHandler(BadRequestException.class)

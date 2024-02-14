@@ -6,16 +6,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ElasticSearchTextSearchRequestBody {
-    @NotNull(message = "Message should not be null")
+    @NotNull(message = "Message is mandatory")
     @NotEmpty(message = "Message should not be empty")
     String text;
+    @NotNull(message = "pageDetails is mandatory")
     PageDetails pageDetails;
 }
