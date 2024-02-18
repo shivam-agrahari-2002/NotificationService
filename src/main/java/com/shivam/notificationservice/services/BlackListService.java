@@ -25,7 +25,7 @@ BlackListService {
     public boolean blackListChecker(String phoneNumber) throws Exception{
         phoneNumber = phoneNumber.substring(Math.max(0, phoneNumber.length() - 10));
         if(blacklistCachingService.isPresent(phoneNumber)) return true;
-        boolean check = false;
+        boolean check;
         try{
             check = blackListRepository.existsById(phoneNumber);
         } catch (Exception e) {
