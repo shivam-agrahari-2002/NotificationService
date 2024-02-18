@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: sh -c "redis-server --appendonly yes & while :; do redis-cli BGREWRITEAOF; sleep 3600; done"
+
+volumes:
+  redis_data:
+    driver: local

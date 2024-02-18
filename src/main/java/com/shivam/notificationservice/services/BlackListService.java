@@ -23,6 +23,7 @@ BlackListService {
     BlackListRepository blackListRepository;
     BlacklistCachingService blacklistCachingService;
     public boolean blackListChecker(String phoneNumber) throws Exception{
+        phoneNumber = phoneNumber.substring(Math.max(0, phoneNumber.length() - 10));
         if(blacklistCachingService.isPresent(phoneNumber)) return true;
         boolean check = false;
         try{
@@ -38,6 +39,7 @@ BlackListService {
         return false;
     }
     public boolean blackLister(String phoneNumber) throws Exception{
+        phoneNumber = phoneNumber.substring(Math.max(0, phoneNumber.length() - 10));
         if(blacklistCachingService.isPresent(phoneNumber)){
             return false;
         }
@@ -54,6 +56,7 @@ BlackListService {
     }
 
     public void whiteLister(String phoneNumber) throws Exception{
+        phoneNumber = phoneNumber.substring(Math.max(0, phoneNumber.length() - 10));
         try {
             blackListRepository.deleteById(phoneNumber);
         } catch (Exception e){

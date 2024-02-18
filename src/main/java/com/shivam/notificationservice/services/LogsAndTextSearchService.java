@@ -67,7 +67,8 @@ public class LogsAndTextSearchService {
             log.error("phoneNumber didn't pass validation");
             throw new BadRequestException(new ResponseError(Constants.INVALID_REQUEST,"check your phoneNumber"));
         }
-//        requestBody.setPhoneNumber(requestBody.getPhoneNumber().substring(Math.max(0, s.length() - 10)));
+        String s = requestBody.getPhoneNumber();
+        requestBody.setPhoneNumber(requestBody.getPhoneNumber().substring(Math.max(0, s.length() - 10)));
         Long startTime = Timestamp.valueOf(requestBody.getStartTime()).getTime();
         Long endTime = Timestamp.valueOf(requestBody.getEndTime()).getTime();
         PageRequest pageRequest = PageRequest.of(requestBody.getPageDetails().getPage(),requestBody.getPageDetails().getSize());
