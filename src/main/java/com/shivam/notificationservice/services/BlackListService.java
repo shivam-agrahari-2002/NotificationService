@@ -44,7 +44,7 @@ BlackListService {
             return false;
         }
         try {
-            if (blackListRepository.existsById(phoneNumber)) {
+            if (!blackListRepository.existsById(phoneNumber)) {
                 blackListRepository.save(new BlackListEntity(phoneNumber));
                 return true;
             }
@@ -87,6 +87,9 @@ BlackListService {
         for(String phoneNumber: phoneNumbers) {
             if(blackListRepository.existsById(phoneNumber)) {
                 whiteLister(phoneNumber);
+            }
+            if(blacklistCachingService.isPresent(phoneNumber)){
+                blacklistCachingService.removeFromSet(phoneNumber);
             }
         }
         return "Sucessfully Whitelisted";
