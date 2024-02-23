@@ -1,107 +1,137 @@
-version: '2.2'
-services:
-  es01:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.17
-    container_name: es01
-    environment:
-      - node.name=es01
-      - cluster.name=es-docker-cluster
-      - discovery.seed_hosts=es02,es03
-      - cluster.initial_master_nodes=es01,es02,es03
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-      # Set Elasticsearch username and password
-      - "ELASTIC_PASSWORD=your_password"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    volumes:
-      - data01:/usr/share/elasticsearch/data
-    ports:
-      - 9200:9200
-    networks:
-      - elastic
-
-  es02:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.17
-    container_name: es02
-    environment:
-      - node.name=es02
-      - cluster.name=es-docker-cluster
-      - discovery.seed_hosts=es01,es03
-      - cluster.initial_master_nodes=es01,es02,es03
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-      # Set Elasticsearch username and password
-      - "ELASTIC_PASSWORD=your_password"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    volumes:
-      - data02:/usr/share/elasticsearch/data
-    networks:
-      - elastic
-
-  es03:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.17
-    container_name: es03
-    environment:
-      - node.name=es03
-      - cluster.name=es-docker-cluster
-      - discovery.seed_hosts=es01,es02
-      - cluster.initial_master_nodes=es01,es02,es03
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-      # Set Elasticsearch username and password
-      - "ELASTIC_PASSWORD=your_password"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    volumes:
-      - data03:/usr/share/elasticsearch/data
-    networks:
-      - elastic
-
-  es-client:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.17
-    container_name: es-client
-    environment:
-      - node.name=es-client
-      - cluster.name=es-docker-cluster
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-      - "node.master=false"
-      - "node.data=false"
-      - "node.ingest=false"
-      - "discovery.type=single-node" # Client node does not participate in discovery
-      - "bootstrap.memory_lock=true"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    networks:
-      - elastic
-
-  kibana:
-    image: docker.elastic.co/kibana/kibana:7.17.17
-    container_name: kibana
-    environment:
-      - ELASTICSEARCH_HOSTS=http://es-client:9200 # Connect to the client node
-      # Set Kibana username and password
-      - ELASTICSEARCH_USERNAME=elastic
-      - ELASTICSEARCH_PASSWORD=your_password
-    ports:
-      - 5601:5601
-    networks:
-      - elastic
-
-volumes:
-  data01:
-    driver: local
-  data02:
-    driver: local
-  data03:
-    driver: local
+version: '3.8'
 
 networks:
-  elastic:
+  Kafka-zookeeper-network:
     driver: bridge
+
+services:
+  zoo1:
+    image: confluentinc/cp-zookeeper:7.3.2
+    container_name: zoo1
+    networks:
+      - Kafka-zookeeper-network
+    ports:
+      - "2182:2182"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2182
+      ZOOKEEPER_SERVER_ID: 1
+      ZOOKEEPER_SERVERS: "zoo1:2888:3888;zoo2:2888:3888;zoo3:2888:3888"
+    volumes:
+      - zoo1_data:/var/lib/zookeeper/data
+      - zoo1_log:/var/lib/zookeeper/log
+
+  zoo2:
+    image: confluentinc/cp-zookeeper:7.3.2
+    container_name: zoo2
+    networks:
+      - Kafka-zookeeper-network
+    ports:
+      - "2183:2183"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2183
+      ZOOKEEPER_SERVER_ID: 2
+      ZOOKEEPER_SERVERS: "zoo1:2888:3888;zoo2:2888:3888;zoo3:2888:3888"
+    volumes:
+      - zoo2_data:/var/lib/zookeeper/data
+      - zoo2_log:/var/lib/zookeeper/log
+
+  zoo3:
+    image: confluentinc/cp-zookeeper:7.3.2
+    container_name: zoo3
+    networks:
+      - Kafka-zookeeper-network
+    ports:
+      - "2184:2184"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2184
+      ZOOKEEPER_SERVER_ID: 3
+      ZOOKEEPER_SERVERS: "zoo1:2888:3888;zoo2:2888:3888;zoo3:2888:3888"
+    volumes:
+      - zoo3_data:/var/lib/zookeeper/data
+      - zoo3_log:/var/lib/zookeeper/log
+
+  kafka1:
+    image: confluentinc/cp-kafka:7.3.2
+    container_name: kafka1
+    networks:
+      - Kafka-zookeeper-network
+    ports:
+      - "9093:9093"
+    environment:
+      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://kafka1:9093"
+      KAFKA_ZOOKEEPER_CONNECT: "zoo1:2182,zoo2:2183,zoo3:2184"
+      KAFKA_BROKER_ID: 1
+    depends_on:
+      - zoo1
+      - zoo2
+      - zoo3
+    volumes:
+      - kafka1_data:/var/lib/kafka/data
+
+  kafka2:
+    image: confluentinc/cp-kafka:7.3.2
+    container_name: kafka2
+    networks:
+      - Kafka-zookeeper-network
+    ports:
+      - "9094:9094"
+    environment:
+      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://kafka2:9094"
+      KAFKA_ZOOKEEPER_CONNECT: "zoo1:2182,zoo2:2183,zoo3:2184"
+      KAFKA_BROKER_ID: 2
+    depends_on:
+      - zoo1
+      - zoo2
+      - zoo3
+    volumes:
+      - kafka2_data:/var/lib/kafka/data
+
+  kafka3:
+    image: confluentinc/cp-kafka:7.3.2
+    container_name: kafka3
+    networks:
+      - Kafka-zookeeper-network
+    ports:
+      - "9095:9095"
+    environment:
+      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://kafka3:9095"
+      KAFKA_ZOOKEEPER_CONNECT: "zoo1:2182,zoo2:2183,zoo3:2184"
+      KAFKA_BROKER_ID: 3
+    depends_on:
+      - zoo1
+      - zoo2
+      - zoo3
+    volumes:
+      - kafka3_data:/var/lib/kafka/data
+
+  kafka-schema-registry:
+    image: confluentinc/cp-schema-registry:7.3.2
+    hostname: kafka-schema-registry
+    container_name: kafka-schema-registry
+    networks:
+      - Kafka-zookeeper-network
+    depends_on:
+      - zoo1
+      - zoo2
+      - zoo3
+      - kafka1
+      - kafka2
+      - kafka3
+    ports:
+      - "8030:8081"
+    environment:
+      SCHEMA_REGISTRY_HOST_NAME: kafka-schema-registry
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: 'PLAINTEXT://kafka1:9093,PLAINTEXT://kafka2:9094,PLAINTEXT://kafka3:9095'
+      KAFKA_ZOOKEEPER_CONNECT: "zoo1:2182,zoo2:2183,zoo3:2184"
+      SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081
+
+volumes:
+  zoo1_data:
+  zoo1_log:
+  zoo2_data:
+  zoo2_log:
+  zoo3_data:
+  zoo3_log:
+  kafka1_data:
+  kafka2_data:
+  kafka3_data:
